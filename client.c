@@ -10,7 +10,6 @@ int main(int agrc, char *argv[]) {
         printf("Não foi possível criar o socket\n");
         return 1;
     }
-
     
     return 0;
 }
