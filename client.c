@@ -52,6 +52,7 @@ int main(int agrc, char *argv[]) {
     printf("Respostas recebida\n");
     printf("%s\n", server_reply);
 
+    /* ENCERRA CONEXÃO */
     close(socket_desc);
 
 
