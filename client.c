@@ -55,6 +55,7 @@ int main(int agrc, char *argv[]) {
     /* ENCERRA CONEXÃO */
     close(socket_desc);
 
+    
 
     return 0;
 }
