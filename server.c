@@ -39,14 +39,15 @@ int main(int argc, char *argv[])
     /* aceitar conexões entrantes */
     printf("Aguardando conexões...\n");
     c = sizeof(struct sockaddr_in);
-    while ((new_socket = accept(socket_desc, (struct sockaddr ) &client, (socklen_t) &c)))
+    while ((new_socket = accept(socket_desc, (struct sockaddr *) &client, (socklen_t*) &c)))
     {
+        char *client_ip = inet_ntoa(client.sin_addr);
+        int client_port = ntohs(client.sin_port);
+
+        printf("conexão aceita do client %s:%d\n", client_ip, client_port);
+
         do {
-            char *client_ip = inet_ntoa(client.sin_addr);
-            int client_port = ntohs(client.sin_port);
-
-            printf("conexão aceita do client %s:%d\n", client_ip, client_port);
-
+            bzero(client_reply, sizeof(client_reply)); /* limpa a variável char[] */
             /* recebe dados do cliente */
             if (recv(new_socket, client_reply, 2000, 0) < 0)
             {
@@ -57,9 +58,9 @@ int main(int argc, char *argv[])
             printf("%s\n", client_reply);
 
             /* resposta ao cliente */
-            message = "Olá Cliente! Recebi sua mensagem!";
+            message = "Olá Cliente! Recebi sua conexão, mas preciso ir agora! Tchau!";
             write(new_socket, message, strlen(message));
-        } while (message != "exit");
+        } while(strcmp(client_reply, "exit") != 0);
     }
     if (new_socket < 0) 
     {

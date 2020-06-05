@@ -31,7 +31,7 @@ int main(int argc, char *argv[]) {
     printf("Digite uma mensagem: ");
     scanf("%s", message);
     fflush(stdin);
-    printf("\n");
+
 
     if (send(socket_desc, message, strlen(message), 0) < 0) {
       printf("Erro ao enviar\n");
